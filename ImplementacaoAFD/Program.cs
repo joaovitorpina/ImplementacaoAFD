@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ImplementacaoAFD
 {
@@ -20,6 +19,7 @@ namespace ImplementacaoAFD
                 case Menu.CriacaoAFD:
                     automato = new Automato();
                     automato.CriarAutomato();
+                    automato.MostrarAutomato();
                     break;
                 case Menu.RodarCadeia:
                     break;
