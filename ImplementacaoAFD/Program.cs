@@ -9,7 +9,10 @@ namespace ImplementacaoAFD
         {
             Automato automato = null;
             Console.WriteLine("======MENU======");
-            
+            Console.WriteLine("1- Criação AFD");
+            Console.WriteLine("2- Rodar Cadeia");
+            Console.WriteLine("3- Sair");
+            Console.WriteLine("================");
             Console.WriteLine("Escolha uma opcão do menu:");
             var menu = (Menu) Convert.ToInt32(Console.ReadLine());
             switch (menu)
@@ -19,10 +22,6 @@ namespace ImplementacaoAFD
                     automato.CriarAutomato();
                     break;
                 case Menu.RodarCadeia:
-                    if (automato == null)
-                    {
-                        Console.WriteLine("asubdaiusbnda");
-                    }
                     break;
                 case Menu.Sair:
                     break;
