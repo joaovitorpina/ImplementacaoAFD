@@ -35,7 +35,7 @@ namespace ImplementacaoAFD
             do
             {
                 var estado = new Estado();
-                Console.WriteLine("Insira os estados: ");
+                Console.WriteLine("Insira o estado: ");
                 estado.Nome = Console.ReadLine();
                 Console.WriteLine("Esse estado é inicial? 0- Não 1- Sim");
                 estado.Inicial =
@@ -44,7 +44,6 @@ namespace ImplementacaoAFD
                 estado.Final =
                     Convert.ToBoolean(int.Parse(Console.ReadLine() ?? throw new InvalidOperationException()));
                 Estados.Add(estado);
-
                 Console.WriteLine("Deseja continuar inserindo? 1- Sim 2- Não");
                 op = Convert.ToInt32(Console.ReadLine());
             } while (op == 1);
@@ -80,8 +79,25 @@ namespace ImplementacaoAFD
 
         public void MostrarAutomato()
         {
+            Console.WriteLine("DESCRIÇÃO DO AF:");
+            Console.WriteLine("Alfabetos: ");
+            foreach (var alfabetos in Alfabeto)
+                Console.WriteLine(alfabetos);
+
+            Console.WriteLine("Estados:");
+            foreach (var estado in Estados)
+                Console.WriteLine(estado.Nome);
+
+            Console.WriteLine("Estados iniciais:");
             var estadosIniciais = Estados.Where(e => e.Inicial);
-            foreach (var estadoInicial in estadosIniciais) Console.WriteLine();
+            foreach (var estadoInicial in estadosIniciais)
+                Console.WriteLine(estadoInicial.Nome);
+            
+            Console.WriteLine("Estados finais:");
+            var estadosFinais = Estados.Where(e => e.Final);
+            foreach (var estadoFinal in estadosFinais)
+                Console.WriteLine(estadoFinal.Nome);
+            
         }
 
         public void RodarCadeia(char[] cadeia)
