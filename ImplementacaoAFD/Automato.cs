@@ -83,6 +83,43 @@ namespace ImplementacaoAFD
             var estadosIniciais = Estados.Where(e => e.Inicial);
             foreach (var estadoInicial in estadosIniciais) Console.WriteLine();
         }
+
+        public void RodarCadeia(char[] cadeia)
+        {
+            var estadoAtual = Estados.First(e => e.Inicial);
+            var cadeiaAceita = false;
+            try
+            {
+                foreach (var c in cadeia)
+                {
+                    var regra = Regras.FirstOrDefault(r => r.Identificador == c);
+                    if (regra == null)
+                        throw new CadeiaInvalidaException();
+
+                    estadoAtual = regra.ProximoEstado;
+
+                    Console.WriteLine(!estadoAtual.Final
+                        ? $"Leu o Símbolo 1 o foi para o Estado {estadoAtual.Nome}"
+                        : $"Leu o Símbolo 1 o foi para o Estado final {estadoAtual.Nome}");
+                }
+
+                if (estadoAtual.Final)
+                    cadeiaAceita = true;
+            }
+            catch (Exception e)
+            {
+                switch (e)
+                {
+                    case CadeiaInvalidaException _:
+                        break;
+                    default: throw;
+                }
+            }
+
+            Console.WriteLine(cadeiaAceita
+                ? $"A cadeia {cadeia} foi ACEITA pelo Autômato!"
+                : $"A cadeia {cadeia} foi REJEITADA pelo Autômato!");
+        }
     }
 
     public class Estado
@@ -97,5 +134,9 @@ namespace ImplementacaoAFD
         public Estado EstadoAtual { get; set; }
         public char Identificador { get; set; }
         public Estado ProximoEstado { get; set; }
+    }
+
+    public class CadeiaInvalidaException : Exception
+    {
     }
 }
