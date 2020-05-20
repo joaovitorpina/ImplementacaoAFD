@@ -13,11 +13,11 @@ namespace ImplementacaoAFD
             Regras = new List<Regra>();
         }
 
-        public List<char> Alfabeto { get; set; }
-        public List<Estado> Estados { get; set; }
-        public List<Regra> Regras { get; set; }
+        private List<char> Alfabeto { get; }
+        private List<Estado> Estados { get; }
+        private List<Regra> Regras { get; }
 
-        public void LerAlfabeto()
+        private void LerAlfabeto()
         {
             int op;
             Console.WriteLine("Insira o alfabeto");
@@ -38,7 +38,7 @@ namespace ImplementacaoAFD
             } while (op == 1);
         }
 
-        public void LerEstados()
+        private void LerEstados()
         {
             int op;
             Console.WriteLine("Insira o(s) estado(s): ");
@@ -54,6 +54,11 @@ namespace ImplementacaoAFD
                 estado.Final =
                     Convert.ToBoolean(int.Parse(Console.ReadLine() ?? throw new InvalidOperationException()));
                 Estados.Add(estado);
+
+                var e = Estados.FirstOrDefault(e => e.Nome == estado.Nome);
+                if (e != default)
+                    Console.WriteLine($"O estado {e.Nome} ja existe");
+
                 Console.WriteLine("Deseja continuar inserindo? 1- Sim 0- Não");
                 op = Convert.ToInt32(Console.ReadLine());
 
@@ -61,7 +66,7 @@ namespace ImplementacaoAFD
             } while (op == 1);
         }
 
-        public void LerRegras()
+        private void LerRegras()
         {
             int op;
             Console.WriteLine("Insira o estado atual: ");
@@ -77,6 +82,9 @@ namespace ImplementacaoAFD
                 estado = Console.ReadLine();
                 regra.ProximoEstado = Estados.FirstOrDefault(e => e.Nome == estado);
                 Regras.Add(regra);
+
+                if (Regras.Any(r => r == regra))
+                    Console.WriteLine("A regra ja existe");
 
                 Console.WriteLine("Deseja realizar novamente? 1- Sim 0- Não");
                 op = Convert.ToInt32(Console.ReadLine());
